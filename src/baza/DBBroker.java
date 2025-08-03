@@ -25,7 +25,6 @@ public class DBBroker {
     public List<Knjiga> ucitajListuKnjigaIzBaze() {
         List<Knjiga> lista = new ArrayList<>();
         try {
-
             String upit = "SELECT * FROM knjiga k JOIN autor a ON k.autorId = a.id";
             Statement st = Konekcija.getInstance().getConnection().createStatement();
             ResultSet rs = st.executeQuery(upit);
@@ -48,7 +47,6 @@ public class DBBroker {
                 Knjiga k = new Knjiga(id, naslov, a, isbn, godIz, z);
                 lista.add(k);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,7 +56,6 @@ public class DBBroker {
     public List<Autor> ucitajListuAutoraIzBaze() {
         List<Autor> lista = new ArrayList<>();
         try {
-
             String upit = "SELECT * FROM autor a";
             Statement st = Konekcija.getInstance().getConnection().createStatement();
             ResultSet rs = st.executeQuery(upit);
@@ -89,7 +86,6 @@ public class DBBroker {
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void dodajKnjigu(Knjiga novaKnjiga) {
@@ -104,7 +100,6 @@ public class DBBroker {
             ps.setString(6, String.valueOf(novaKnjiga.getZanr()));
             ps.executeUpdate();
             Konekcija.getInstance().getConnection().commit();
-
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,7 +117,6 @@ public class DBBroker {
             ps.setInt(5, knjigaZaIzmenu.getId());
             ps.executeUpdate();
             Konekcija.getInstance().getConnection().commit();
-
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -152,15 +146,15 @@ public class DBBroker {
         try {
             String upit = "SELECT * FROM knjiga k JOIN autor a ON k.autorid=a.id WHERE 1=1\n";
             // " AND";
-            if (naziv != null) {
+            if (naziv != null && !naziv.equals("")) {
                 upit += " AND k.naslov='" + naziv + "'";
             }
-            if (autor != null) {
+            if (autor != null && !autor.equals("")) {
                 String[] podaci = autor.split(" ");
                 if (podaci[0] != null) {
                     upit += " AND a.ime='" + podaci[0] + "'";
                 }
-                if (podaci.length>=2 && podaci[1] != null) {
+                if (podaci.length >= 2 && podaci[1] != null) {
                     upit += " AND a.prezime='" + podaci[1] + "'";
                 }
             }

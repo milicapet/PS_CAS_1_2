@@ -105,8 +105,7 @@ public class LoginForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Korisnik je ulogovan", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             GlavnaForma gf = new GlavnaForma();
-            gf.setVisible(true);
-            
+            gf.setVisible(true);            
         } else {
             JOptionPane.showMessageDialog(this, "Korisnik nije ulogovan", "Greska", JOptionPane.ERROR_MESSAGE);
         }
